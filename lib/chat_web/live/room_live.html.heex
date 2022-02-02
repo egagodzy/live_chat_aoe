@@ -1,0 +1,20 @@
+<p>Сейчас вы общаетесь в <strong><%= @room_id %> комнате</strong> как <strong><%= @username %></strong></p>
+
+<div id="chat-container">
+    <div id="chat-messages" phx-update="append">
+        <%= for message <- @messages do %>
+            <p id={message.uuid}><strong><%= message.username %>: </strong><%= message.content %></p>
+        <% end %>
+    </div>
+    <div id="user-list">
+        <h3>Активные пользователи</h3>
+        <%= for user <- @user_list do %>
+            <p><%= user %></p>
+        <% end %>
+    </div>
+</div>
+<div id="message-container">
+    <.form let={f} for={:chat} as="#" id="chat-form" phx_submit={:submit_message}, phx_change={:form_update}  >
+        <%= text_input f, :message, value: @message, placeholder: "Введите сообщеине..." %>
+    </.form>
+</div>
